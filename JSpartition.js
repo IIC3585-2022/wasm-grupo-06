@@ -23,7 +23,7 @@ function isSubsetExist(S, n, a, b, c, subList) {
 	return A || B || C;
 }
 
-export function partition(S) {
+export function partition_js(S) {
 	let total = S.reduce((a, b) => a + b);
 	let A = Array(S.length).fill(null);
 
