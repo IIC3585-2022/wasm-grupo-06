@@ -9,3 +9,5 @@ Falta mejorar el frontend
 
 Los inputs son de tipo:
 1,2,3,4,5,6 (Enteros separados por coma y sin espacio)
+
+Codigo basado de: https://www.techiedelight.com/3-partition-problem-extended-print-all-partitions/
