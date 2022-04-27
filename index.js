@@ -18,9 +18,9 @@ const insertToTable = (results, table_type, time) => {
 	let cell2 = row.insertCell(1);
 	let cell3 = row.insertCell(2);
 	let cell4 = row.insertCell(3);
-	cell1.innerHTML = `${results[0]}`;
-	cell2.innerHTML = `${results[1]}`;
-	cell3.innerHTML = `${results[2]}`;
+	cell1.innerHTML = `{${results[0]}}`;
+	cell2.innerHTML = `{${results[1]}}`;
+	cell3.innerHTML = `{${results[2]}}`;
 	cell4.innerHTML = time + "ms";
 };
 
@@ -38,7 +38,6 @@ const insertNotPossible = (table_type, time) => {
 };
 
 const cPartition = (mymod) => {
-	let start = performance.now();
 	let input_array = partitionInput.value.split(",").map(Number);
 	let data_pointer = mymod._malloc(4 * input_array.length);
 	for (let i = 0; i < input_array.length; i++) {
@@ -62,6 +61,8 @@ const cPartition = (mymod) => {
 		"number",
 		"number",
 	]);
+
+	let start = performance.now();
 	partition(
 		data_pointer,
 		input_array.length,
@@ -69,6 +70,7 @@ const cPartition = (mymod) => {
 		pointerArray[1],
 		pointerArray[2]
 	);
+	let end = performance.now();
 
 	let cPartArray = [[], [], []];
 
@@ -79,9 +81,7 @@ const cPartition = (mymod) => {
 		}
 	}
 
-	let end = performance.now();
-
-	if (cPartArray[0].length != 0)
+		if (cPartArray[0].length != 0)
 		insertToTable(cPartArray, "c", (end - start).toFixed(1));
 	else {
 		insertNotPossible("c", (end - start).toFixed(1));
@@ -89,9 +89,8 @@ const cPartition = (mymod) => {
 };
 
 const jsPartition = () => {
-	let start = performance.now();
 	let jarray = partitionInput.value.split(",").map(Number);
-
+	let start = performance.now();
 	let [partBool, jsPartArray] = partition_js(jarray);
 
 	let end = performance.now();

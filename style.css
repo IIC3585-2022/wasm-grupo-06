@@ -1,3 +1,28 @@
 td {
 	width: 25px;
+	margin: 25px;
+}
+
+input{
+	width: 500px;
+}
+
+p {
+	width: 100px;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.container-2{
+	width: 2000px;
+}
+.left{
+	float:left;
+	width:1000px;
+	text-align: center;
+}
+.right{
+	float:right;
+	width:1000px;
 }
