@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <numeric>
+#include <emscripten.h>
 using namespace std;
  
 // Helper function to 3–partition problem.
@@ -47,52 +48,55 @@ bool isSubsetExist(vector<int> const &S, int n, int a, int b, int c, vector<int>
  
 // Function for solving the 3–partition problem. It prints the subset if
 // the given set `S[0…n-1]` can be divided into three subsets with an equal sum
-void partition(vector<int> const &S)
-{
-    // get the sum of all elements in the set
-    int sum = accumulate(S.begin(), S.end(), 0);
- 
-    // total number of items in `S`
-    int n = S.size();
- 
-    // construct an array to track the subsets
-    // `arr[i] = k` represents i'th item of `S` is part of k'th subset
-    vector<int> arr(n);
- 
-    // set result to true if the sum is divisible by 3 and the set `S` can
-    // be divided into three subsets with an equal sum
-    bool result = (n >= 3) && !(sum % 3) &&
-            isSubsetExist(S, n - 1, sum/3, sum/3, sum/3, arr);
- 
-    if (!result)
+extern "C" {   
+    EMSCRIPTEN_KEEPALIVE 
+    void partition(vector<int> const &S)
     {
-        cout << "La partición de S = {"; 
-        for (int i = 0; i < n; i++){
-            cout << " " << S[i];
-        }
-        cout << " } no es posible";
-        return;
-    }
-    cout << "La partición de S = {";
-    for (int i = 0; i < n; i++)
-    {
-            cout << " " << S[i];
-    }
-    cout << " } es posible y estas serían:" << endl;
-    // print the partitions
-    for (int i = 0; i < 3; i++)
-    {
-        cout << "S" << i << " = { ";
-        for (int j = 0; j < n; j++)
+        cout << "ACACAAC ";
+        // get the sum of all elements in the set
+        int sum = accumulate(S.begin(), S.end(), 0);
+    
+        // total number of items in `S`
+        int n = S.size();
+    
+        // construct an array to track the subsets
+        // `arr[i] = k` represents i'th item of `S` is part of k'th subset
+        vector<int> arr(n);
+    
+        // set result to true if the sum is divisible by 3 and the set `S` can
+        // be divided into three subsets with an equal sum
+        bool result = (n >= 3) && !(sum % 3) &&
+                isSubsetExist(S, n - 1, sum/3, sum/3, sum/3, arr);
+    
+        if (!result)
         {
-            if (arr[j] == i + 1) {
-                cout << S[j] << " ";
+            cout << "La partición de S = {"; 
+            for (int i = 0; i < n; i++){
+                cout << " " << S[i];
             }
+            cout << " } no es posible";
+            return;
         }
-        cout << "}" << endl;
+        cout << "La partición de S = {";
+        for (int i = 0; i < n; i++)
+        {
+                cout << " " << S[i];
+        }
+        cout << " } es posible y estas serían:" << endl;
+        // print the partitions
+        for (int i = 0; i < 3; i++)
+        {
+            cout << "S" << i << " = { ";
+            for (int j = 0; j < n; j++)
+            {
+                if (arr[j] == i + 1) {
+                    cout << S[j] << " ";
+                }
+            }
+            cout << "}" << endl;
+        }
     }
-}
- 
+} 
 int main()
 {
     // Input: a set of integers
