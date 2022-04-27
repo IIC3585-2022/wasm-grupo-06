@@ -59,8 +59,8 @@ void partition(unsigned int *Vector, unsigned int n, unsigned int *a, unsigned i
     }
     int result = (n >= 3) && !(sum % 3) && isSubsetExists(Vector, n - 1, (int)sum / 3, (int)sum / 3, (int)sum / 3, arr);
     Data *data = malloc(sizeof(Data));
-    data->partition = result;
     data->subset = calloc(3, sizeof(Subset *));
+    data->partition = result;
     if (result)
     {
         for (int i = 0; i < 3; i++)
